@@ -187,28 +187,28 @@ def Login(String server, String creds, String realm){
 
         //Ensure the windows batch script is called from withCredentials step else the
         //credentials will not be masked in the log output
-        sh "apic login --server ${server} --username ${usernameVariableLocal} --password ${passwordVariableLocal} --realm ${realm}"
+        sh "apic login --server ${server} --username ${usernameVariableLocal} --password ${passwordVariableLocal} --realm ${realm} --accept-license"
     }
     //echo "Successfully Logged In:  ${usernameVariableLocal}@${server}"
 }
 
 //Logout from APIM server
 def Logout(String server){
-    sh "apic logout -s ${server}"
+    sh "apic logout -s ${server} --accept-license"
 }
 
 //Publish artifacts to APIM server
 def Publish(String product, String catalog, String org, String server, String space = ""){
     echo "Publishing product ${product}"
     if (!space.trim()) {
-        def status = sh script: "apic products:publish ${product} --catalog ${catalog} --org ${org} --server ${server}",
+        def status = sh script: "apic products:publish ${product} --catalog ${catalog} --org ${org} --server ${server} --accept-license",
             returnStatus: true
         if (status == 0) {
             return status
         }
     }
     else {
-        def status = sh script: "apic products:publish --scope space ${product} --space ${space} --catalog ${catalog} --org ${org} --server ${server}",
+        def status = sh script: "apic products:publish --scope space ${product} --space ${space} --catalog ${catalog} --org ${org} --server ${server} --accept-license",
             returnStatus: true
         if (status == 0) {
             return status
@@ -220,12 +220,12 @@ def Publish(String product, String catalog, String org, String server, String sp
 def Stage(String product, String catalog, String org, String server, String space = "") {
     echo "Staging product ${product}"
     if (!space.trim()) {
-        def status = sh script: "apic products:publish --stage ${product} --catalog ${catalog} --org ${org} --server ${server}",
+        def status = sh script: "apic products:publish --stage ${product} --catalog ${catalog} --org ${org} --server ${server} --accept-license",
             returnStatus: true
         return status
     }
     else {
-        def status = sh script: "apic products:publish --stage --scope space ${product} --space ${space} --catalog ${catalog} --org ${org} --server ${server}",
+        def status = sh script: "apic products:publish --stage --scope space ${product} --space ${space} --catalog ${catalog} --org ${org} --server ${server} --accept-license",
             returnStatus: true
         return status
     }
@@ -234,7 +234,7 @@ def Stage(String product, String catalog, String org, String server, String spac
 //Replace the existing product with a new version of the product
 def Replace(String productName, String newVersion, String productPlanMapFile, String catalog, String org, String server, String space = ""){
     echo "Replacing the existing product ${productName} with the new version of the product ${newVersion}"
-    def status = sh script: "apic products:replace --scope space ${productName}:${newVersion} ${productPlanMapFile} --space ${space} --catalog ${catalog} --org ${org} --server ${server}",
+    def status = sh script: "apic products:replace --scope space ${productName}:${newVersion} ${productPlanMapFile} --space ${space} --catalog ${catalog} --org ${org} --server ${server} --accept-license",
         returnStatus:true
     return status
 }
@@ -265,7 +265,7 @@ def ValidateCCAndDeploy(String server, String creds, String product, String cata
             }
             else {
                 print "Please enter staging product file name. Eg:sample_product_1.1.0.yaml"
-                //Get the satging product file name
+                //Get the staging product file name
                 def stagingProduct = input(
                         id: 'stagingProduct', message: 'Please enter staging product file name. Eg:sample_product_1.1.0.yaml', parameters: [
                         [$class: 'TextParameterDefinition', defaultValue: 'sample_product_1.1.0.yaml', description: 'Staging Product Version', name: 'stagingProduct']
