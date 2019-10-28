@@ -298,9 +298,5 @@ def ValidateCCAndDeploy(String server, String creds, String product, String cata
 
             changeOption = false
         }
-        else {
-                //Change should not be promoted to Production
-                throw new AbortException("FAILED")
-        }
     }
 }
