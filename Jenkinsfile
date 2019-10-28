@@ -25,9 +25,9 @@ jenkinsfileBranch = "master"
 gitCredentials = "git"
 
 //Product yaml file
-def product = "hello_1.0.0.yaml" //Eg: "sample-product_1.0.0.yaml"
+def product = "helloworld_1.0.0.yaml" //Eg: "sample-product_1.0.0.yaml"
 //Name of the API Product in yaml file
-def productName = "helloworld_1.0.0.yaml" //Eg: "sample-product"
+def productName = "helloworld" //Eg: "sample-product"
 
 node('master') { //This is the label which is defined in Jenkins Master and runs in worker node
 
@@ -187,7 +187,7 @@ def Login(String server, String creds, String realm){
 
         //Ensure the windows batch script is called from withCredentials step else the
         //credentials will not be masked in the log output
-        sh "apic login --server ${server} --username ${usernameVariableLocal} --password ${passwordVariableLocal} --realm ${realm} --accept-license"
+        sh "apic login --server ${server} --username ${usernameVariableLocal} --password ${passwordVariableLocal} --realm ${realm} --accept-license --live-help=false"
     }
     //echo "Successfully Logged In:  ${usernameVariableLocal}@${server}"
 }
