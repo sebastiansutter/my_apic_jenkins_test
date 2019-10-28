@@ -1,4 +1,4 @@
-accept-license --live-help=false/*
+/*
 This Jenkinsfile facilitates the promotion of APIC artifacts to the following environments:
     Dev, Test, Staging and Production.
 In the Dev and Test environments, the API artifacts are published to Catalog.
