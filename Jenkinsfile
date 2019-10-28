@@ -298,5 +298,3 @@ def ValidateCCAndDeploy(String server, String creds, String product, String cata
 
             changeOption = false
         }
-    }
-}
