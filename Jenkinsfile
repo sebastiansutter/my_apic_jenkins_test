@@ -1,4 +1,4 @@
-/*
+accept-license --live-help=false/*
 This Jenkinsfile facilitates the promotion of APIC artifacts to the following environments:
     Dev, Test, Staging and Production.
 In the Dev and Test environments, the API artifacts are published to Catalog.
@@ -194,21 +194,21 @@ def Login(String server, String creds, String realm){
 
 //Logout from APIM server
 def Logout(String server){
-    sh "apic logout -s ${server} --accept-license"
+    sh "apic logout -s ${server} --accept-license --live-help=false"
 }
 
 //Publish artifacts to APIM server
 def Publish(String product, String catalog, String org, String server, String space = ""){
     echo "Publishing product ${product}"
     if (!space.trim()) {
-        def status = sh script: "apic products:publish ${product} --catalog ${catalog} --org ${org} --server ${server} --accept-license",
+        def status = sh script: "apic products:publish ${product} --catalog ${catalog} --org ${org} --server ${server} --accept-license --live-help=false",
             returnStatus: true
         if (status == 0) {
             return status
         }
     }
     else {
-        def status = sh script: "apic products:publish --scope space ${product} --space ${space} --catalog ${catalog} --org ${org} --server ${server} --accept-license",
+        def status = sh script: "apic products:publish --scope space ${product} --space ${space} --catalog ${catalog} --org ${org} --server ${server} --accept-license --live-help=false",
             returnStatus: true
         if (status == 0) {
             return status
@@ -220,12 +220,12 @@ def Publish(String product, String catalog, String org, String server, String sp
 def Stage(String product, String catalog, String org, String server, String space = "") {
     echo "Staging product ${product}"
     if (!space.trim()) {
-        def status = sh script: "apic products:publish --stage ${product} --catalog ${catalog} --org ${org} --server ${server} --accept-license",
+        def status = sh script: "apic products:publish --stage ${product} --catalog ${catalog} --org ${org} --server ${server} --accept-license --live-help=false",
             returnStatus: true
         return status
     }
     else {
-        def status = sh script: "apic products:publish --stage --scope space ${product} --space ${space} --catalog ${catalog} --org ${org} --server ${server} --accept-license",
+        def status = sh script: "apic products:publish --stage --scope space ${product} --space ${space} --catalog ${catalog} --org ${org} --server ${server} --accept-license --live-help=false",
             returnStatus: true
         return status
     }
