@@ -25,9 +25,9 @@ jenkinsfileBranch = "master"
 gitCredentials = "git"
 
 //Product yaml file
-def product = "helloworld_1.0.0.yaml" //Eg: "sample-product_1.0.0.yaml"
+def product = "openapi3.yaml" //Eg: "sample-product_1.0.0.yaml"
 //Name of the API Product in yaml file
-def productName = "helloworld" //Eg: "sample-product"
+def productName = "openapi3" //Eg: "sample-product"
 
 node('master') { //This is the label which is defined in Jenkins Master and runs in worker node
 
